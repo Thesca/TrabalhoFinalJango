@@ -7,4 +7,6 @@ int main () {
 
 	
     cout << "Thiagão deu Boa" << endl;
+
+    cout << "Vinição deu boa" << endl;
 }

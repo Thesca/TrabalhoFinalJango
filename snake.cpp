@@ -15,6 +15,7 @@ using namespace std;
 int fruitY, fruitX, snakeX, snakeY, score;
 enum eDirection {STOP = 0, UP, DOWN, LEFT, RIGHT};
 eDirection dir;
+bool gameOver = false;
 
 int * tailX = (int *) malloc (2 * sizeof(int));
 int * tailY = (int *) malloc (2 * sizeof(int));
@@ -72,28 +73,37 @@ void drawSnake() {
 
 //Coleta o input do player
 void inputSnake() {
-   if(kbhit()) {
-      switch(getch()) {
+   if(_kbhit()) {
+      switch(_getch()) {
          case 'w':
-            dir = UP;
+            if (dir != DOWN) {
+               dir = UP;
+            }   
             break;
          case 's':
-            dir = DOWN;
+            if (dir != UP) {
+               dir = DOWN;
+            }   
             break;
          case 'a':
-            dir = LEFT;
+            if (dir != RIGHT) {
+               dir = LEFT;
+            }   
             break;
          case 'd':
-            dir = RIGHT;
+            if (dir != LEFT) {
+               dir = RIGHT;
+            }   
             break;
-         default:
+         case '0':
+            gameOver = true;
             break;
       }
    }
 }
 
 //Tudo de lógica para as mecânicas da cobrinha funcionar
-bool logicSnake() {
+void logicSnake() {
 
    //Iniciando váriaveis para acompanhar a calda
    int prevX = tailX[0];
@@ -112,30 +122,17 @@ bool logicSnake() {
       prevY = prev2Y;
    }
 
-   bool gameOver = false;
    switch(dir) {
       case UP:
-         if (dir == DOWN) {
-            break;
-         }
          snakeY--;
+         break;
       case DOWN:
-         if (dir == UP) {
-            
-            break;
-         }
          snakeY++;
          break;
       case LEFT:
-         if (dir == RIGHT) {
-            break;
-         }
          snakeX--;
          break;
       case RIGHT:
-         if (dir == LEFT) {
-            break;
-         }
          snakeX++;
          break;
       default:
@@ -162,17 +159,15 @@ bool logicSnake() {
          tailY = (int *) realloc(tailY, (nTail+2)*sizeof(int));
       }
    }
-   return gameOver;
 }
 
 void initSnake () {
-
-   bool gameOver;
+   
    setupSnake();
    while(!gameOver) {
       drawSnake();
       inputSnake();
-      gameOver = logicSnake();
+      logicSnake();
       Sleep(40);
    }
 }

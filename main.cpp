@@ -1,16 +1,9 @@
 #include <iostream>
-#include <windows.h>
-#include "snake.h"
+#include "common.h"
 
 int main () {
    
-   setupSnake();
-   while(1) {
-      drawSnake();
-      inputSnake();
-      logicSnake();
-      Sleep(40);
-   }
+   initSnake();
 
    return 0;
 }

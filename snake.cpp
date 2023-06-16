@@ -43,6 +43,7 @@ class SnakeGame {
       }
 
       void setupSnake() {
+         score = 0;
          if (inputLevel == 3) {
             width = 20;
             height = 20;
@@ -170,7 +171,6 @@ class SnakeGame {
       }
 
       auto readScore(){
-
          int cont = 0;
          std::ifstream arquivo("score.txt");
          std::vector<std::string> valores;

@@ -12,7 +12,7 @@ class SnakeGame {
       int width;
       int height;
       int fruitY, fruitX, snakeX, snakeY;
-      int score = 0;
+      int score;
       int inputLevel;
       
       enum eDirection {STOP = 0, UP, DOWN, LEFT, RIGHT};
@@ -44,9 +44,11 @@ class SnakeGame {
 
       void setupSnake() {
          score = 0;
+         //Caso for DOOM
          if (inputLevel == 3) {
             width = 20;
             height = 20;
+         //Caso for Easy ou Hard
          } else {
             width = 30;
             height = 30;
@@ -200,18 +202,18 @@ class SnakeGame {
          //Iniciando váriaveis para acompanhar a calda
          int prevX = tailX[0];
          int prevY = tailY[0];
-         int prev2X, prev2Y;
+         int auxX, auxY;
          tailX[0] = snakeX;
          tailY[0] = snakeY;
 
          //Looping para as atribuições dos membros anteriores da calda
          for (int i = 1; i < nTail; ++i) {
-            prev2X = tailX[i];
-            prev2Y = tailY[i];
+            auxX = tailX[i];
+            auxY = tailY[i];
             tailX[i] = prevX;
             tailY[i] = prevY;
-            prevX = prev2X;
-            prevY = prev2Y;
+            prevX = auxX;
+            prevY = auxY;
          }
 
          switch(dir) {
@@ -279,6 +281,10 @@ class SnakeGame {
       }
 
    public:
+
+      ~SnakeGame() {
+         delete tailX, tailY;
+      }
 
       void run(){
          int resp = 0;
